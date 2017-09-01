@@ -58,6 +58,7 @@ public class Interpolacao {
             System.out.println(this.bytes);
             BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(this.bytes));
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+
             return image;
         } catch (Exception x) {
             System.out.println("Error");
