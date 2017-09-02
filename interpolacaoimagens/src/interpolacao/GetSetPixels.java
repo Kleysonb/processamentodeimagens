@@ -40,7 +40,7 @@ public class GetSetPixels{
         }
         try{
             System.out.println("Nova Imagem Gerada");
-            File f = new File("NovaImagemGerada.jpg");
+            File f = new File("img.jpg");
             ImageIO.write(novaImagem, "jpg", f);
             return f;
         }catch(IOException e){

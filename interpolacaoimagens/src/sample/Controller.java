@@ -58,7 +58,8 @@ public class Controller implements Initializable {
                 System.out.println("Arquivo Enviado para Interpolação.");
                 this.interpolacao = new Interpolacao(selectedFile);
                 //this.interpolacao.vizinhoReducao();
-                this.interpolacao.vizinhoAmpliacao();
+                //this.interpolacao.vizinhoAmpliacao();
+                this.interpolacao.bilinearReducao();
                 //this.interpolacao.seletorArquivo(selectedFile);
             }
             BufferedImage bufferedImage = ImageIO.read(selectedFile);
@@ -67,7 +68,7 @@ public class Controller implements Initializable {
             //this.vizinhoReducao.setImage(this.interpolacao.vizinhoProxReducao());
             //this.vizinhoAmpliacao.setImage(image);
             //this.bilinearReducao.setImage(this.interpolacao.bilinearReducao());
-            this.bilinearAmpliacao.setImage(image);
+            //this.bilinearAmpliacao.setImage(image);
         } catch (IOException ex) {
             //Logger.getLogger(JavaFXPixel.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error");
