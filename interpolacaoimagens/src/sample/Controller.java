@@ -45,30 +45,32 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    private void seletorArquivo() throws IOException {
+    private void seletorArquivo() {
         //System.out.println("oii");
         Stage mainStage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Abrir Arquivo");
-        boolean b = fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Imagem", "*.png", "*.jpg"));
-        File selectedFile = fileChooser.showOpenDialog(mainStage);
-        if (selectedFile != null) {
-            System.out.println("Arquivo Enviado para Interpolação.");
-            this.interpolacao = new Interpolacao(selectedFile);
-            //this.interpolacao.seletorArquivo(selectedFile);
-        }
-
-        try {
+        try{
+            boolean b = fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Imagem", "*.png", "*.jpg", "*.jpeg"));
+            File selectedFile = fileChooser.showOpenDialog(mainStage);
+            if (selectedFile != null) {
+                System.out.println("Arquivo Enviado para Interpolação.");
+                this.interpolacao = new Interpolacao(selectedFile);
+                //this.interpolacao.vizinhoReducao();
+                this.interpolacao.vizinhoAmpliacao();
+                //this.interpolacao.seletorArquivo(selectedFile);
+            }
             BufferedImage bufferedImage = ImageIO.read(selectedFile);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             //System.out.println("aqui");
-            this.vizinhoReducao.setImage(this.interpolacao.vizinhoProxReducao());
-            this.vizinhoAmpliacao.setImage(image);
+            //this.vizinhoReducao.setImage(this.interpolacao.vizinhoProxReducao());
+            //this.vizinhoAmpliacao.setImage(image);
             //this.bilinearReducao.setImage(this.interpolacao.bilinearReducao());
             this.bilinearAmpliacao.setImage(image);
         } catch (IOException ex) {
             //Logger.getLogger(JavaFXPixel.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error");
         }
 
     }
