@@ -179,6 +179,7 @@ public class Interpolacao {
                 //int d = this.suporteMediaBilinear(this.matrizPixel[i][j+1], this.matrizPixel[i+1][j+1]);
                 int c = this.suporteMediaBilinear(this.matrizPixel[i][j], this.matrizPixel[i][j+1], this.matrizPixel[i+1][j], this.matrizPixel[i+1][j+1]);
 
+                novaMatrizPixel[linha][coluna] = this.matrizPixel[i][j];
                 novaMatrizPixel[linha][coluna+1] = a;
                 novaMatrizPixel[linha+1][coluna] = b;
                 novaMatrizPixel[linha+1][coluna+1] = c;

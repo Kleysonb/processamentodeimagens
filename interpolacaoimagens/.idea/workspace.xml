@@ -12,11 +12,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Interpolacao.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Interpolacao.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/interpolacao/Interpolacao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="173" column="21" lean-forward="true" selection-start-line="173" selection-start-column="21" selection-end-line="173" selection-end-column="21" />
+            <state relative-caret-position="256">
+              <caret line="181" column="70" lean-forward="false" selection-start-line="181" selection-start-column="70" selection-end-line="181" selection-end-column="70" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#vizinhoReducao#0;class#Interpolacao#0" expanded="false" />
@@ -29,11 +29,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GetSetPixels.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GetSetPixels.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/interpolacao/GetSetPixels.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="67">
-              <caret line="31" column="94" lean-forward="true" selection-start-line="31" selection-start-column="94" selection-end-line="31" selection-end-column="94" />
+              <caret line="31" column="97" lean-forward="false" selection-start-line="31" selection-start-column="97" selection-end-line="31" selection-end-column="97" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -304,12 +304,12 @@
       <updated>1504355361249</updated>
       <workItem from="1504355370147" duration="9742000" />
       <workItem from="1504369124474" duration="10219000" />
-      <workItem from="1504436379480" duration="5492000" />
+      <workItem from="1504436379480" duration="6071000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25453000" />
+    <option name="totallyTimeSpent" value="26032000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -324,7 +324,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35657686" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25832012" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -435,6 +435,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/interpolacao/Interpolacao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="181" column="70" lean-forward="false" selection-start-line="181" selection-start-column="70" selection-end-line="181" selection-end-column="70" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#vizinhoReducao#0;class#Interpolacao#0" expanded="false" />
+            <element signature="method#vizinhoAmpliacao#0;class#Interpolacao#0" expanded="false" />
+            <element signature="method#bilinearReducao#0;class#Interpolacao#0" expanded="false" />
+            <element signature="method#suporteMediaBilinear#0;class#Interpolacao#0" expanded="false" />
+            <element signature="method#suporteMediaBilinear#1;class#Interpolacao#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
@@ -446,24 +461,9 @@
     <entry file="file://$PROJECT_DIR$/src/interpolacao/GetSetPixels.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="67">
-          <caret line="31" column="94" lean-forward="true" selection-start-line="31" selection-start-column="94" selection-end-line="31" selection-end-column="94" />
+          <caret line="31" column="97" lean-forward="false" selection-start-line="31" selection-start-column="97" selection-end-line="31" selection-end-column="97" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/interpolacao/Interpolacao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="173" column="21" lean-forward="true" selection-start-line="173" selection-start-column="21" selection-end-line="173" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#vizinhoReducao#0;class#Interpolacao#0" expanded="false" />
-            <element signature="method#vizinhoAmpliacao#0;class#Interpolacao#0" expanded="false" />
-            <element signature="method#bilinearReducao#0;class#Interpolacao#0" expanded="false" />
-            <element signature="method#suporteMediaBilinear#0;class#Interpolacao#0" expanded="false" />
-            <element signature="method#suporteMediaBilinear#1;class#Interpolacao#0" expanded="false" />
           </folding>
         </state>
       </provider>
