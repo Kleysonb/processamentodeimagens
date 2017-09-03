@@ -90,7 +90,7 @@ public class Interpolacao {
                 novaMatrizPixel[linha][coluna] = this.matrizPixel[i][j];
                 novaMatrizPixel[linha][coluna+1] = this.matrizPixel[i][j];
                 novaMatrizPixel[linha+1][coluna] = this.matrizPixel[i][j];
-                novaMatrizPixel[linha+1][coluna] = this.matrizPixel[i][j];
+                novaMatrizPixel[linha+1][coluna+1] = this.matrizPixel[i][j];
                 coluna+=2;
             }
             //aux++;
@@ -166,26 +166,67 @@ public class Interpolacao {
         //Criando a matriz da nova imagem
         int novaMatrizPixel[][] = new int[novaAltura][novaLargura];
 
+        //System.out.println("Matriz: " + novaMatrizPixel[0][0]);
         int linha=0, coluna;
+        //int colunaAux=0, linhaAux=0;
         //Populando os dados da nova matriz, com base na ampliação por bilinear da imagem real
         for(int i = aY; i < cY; i++){
             coluna=0;
             for(int j = aX; j < bX; j++){
-                int media = this.suporteMediaBilinear(this.matrizPixel[i][j], this.matrizPixel[i][j+1], this.matrizPixel[i+1][j], this.matrizPixel[i+1][j+1]);
-                novaMatrizPixel[linha][coluna] = this.matrizPixel[i][j];
-                novaMatrizPixel[linha][coluna+1] = this.matrizPixel[i][j];
-                novaMatrizPixel[linha+1][coluna] = this.matrizPixel[i][j];
-                novaMatrizPixel[linha+1][coluna] = this.matrizPixel[i][j];
+                int a = this.suporteMediaBilinear(this.matrizPixel[i][j], this.matrizPixel[i][j+1]);
+                //int e = this.suporteMediaBilinear(this.matrizPixel[i+1][j], this.matrizPixel[i+1][j+1]);
+                int b = this.suporteMediaBilinear(this.matrizPixel[i][j], this.matrizPixel[i+1][j]);
+                //int d = this.suporteMediaBilinear(this.matrizPixel[i][j+1], this.matrizPixel[i+1][j+1]);
+                int c = this.suporteMediaBilinear(this.matrizPixel[i][j], this.matrizPixel[i][j+1], this.matrizPixel[i+1][j], this.matrizPixel[i+1][j+1]);
+
+                novaMatrizPixel[linha][coluna+1] = a;
+                novaMatrizPixel[linha+1][coluna] = b;
+                novaMatrizPixel[linha+1][coluna+1] = c;
+
+                //if(colunaAux+2 < novaLargura) novaMatrizPixel[linha+1][coluna+2] = d;
+                //if(linhaAux+2 < novaAltura) novaMatrizPixel[linha+2][coluna+1] = e;
+
+                //colunaAux+=2;
                 coluna+=2;
             }
-            //aux++;
-            //System.out.println(aux+"/"+tot);
+            //linhaAux+=2;
             linha+=2;
         }
 
         //A nova matriz é usada para recontrução da nova imagem
         GetSetPixels.exibirImagem(novaAltura, novaLargura, novaMatrizPixel);
         return null;
+    }
+
+    private int suporteMediaBilinear(int p1, int p2){
+
+        //Recuperar Alpha
+        int a1 = (p1>>24) & 0xff;
+        int a2 = (p2>>24) & 0xff;
+        //Novo Tom de Alpha
+        int a = (a1+a2)/2;
+
+        //Recupera Red
+        int r1 = (p1>>16) & 0xff;
+        int r2 = (p2>>16) & 0xff;
+        //Novo Tom de Red
+        int r = (r1+r2)/2;
+
+        //Recupera Green
+        int g1 = (p1>>8) & 0xff;
+        int g2 = (p2>>8) & 0xff;
+        //Novo Tom de Green
+        int g = (g1+g2)/2;
+
+        //Recupera Blue
+        int b1 = p1 & 0xff;
+        int b2 = p2 & 0xff;
+        //Novo Tom de Blue
+        int b = (b1+b2)/2;
+
+        //Reconstruir Pixel com valores atualizados
+        int p = (a<<24) | (r<<16) | (g<<8) | b;
+        return p;
     }
 
     private int suporteMediaBilinear(int p1, int p2, int p3, int p4){
