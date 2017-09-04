@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Algoritmo {
 
@@ -16,28 +18,14 @@ public class Algoritmo {
         this.matrizPixels = GetSetPixels.gerarMatrizPixel(this.img);
     }
 
-    /*
-        -1 == Branco
-        0 == Preto
-
-        1- Se p = -1, move-se para o próximo pixel;
-        2- Se p = 0, analisa-se s e r:
-        2.1- Se r e s forem -1, assinala-se um novo label para p e
-        anota-se que esse label já foi usado;
-        2.2- Se r ou s for 0, assinala-se label correspondente a p;
-        2.3- Se r ou s forem 0 e têm o mesmo label assinala-se esse
-        label a p;
-        2.4- Se r e s forem 0 e possuem diferentes labels assinala-se
-        um dos labels a p e anota-se que esses labels são
-        equivalentes.
-        3- Troca-se cada label pelo seu equivalente.
-    */
-
     public void rotular(){
+        System.out.println("Rotulando elementos");
+        Map<Integer,Integer> equivalente = new HashMap<Integer, Integer>();
         int altura = img.getWidth();
         int largura = img.getHeight();
+        int BRANCO = -1;
+        int PRETO = 0;
 
-        //int label = 1;
         int novaMatrizPixel[][] = new int[altura][largura];
         int matrizBinaria[][] = converterParaBinaria();
 
@@ -46,31 +34,93 @@ public class Algoritmo {
 
         for(int i = 1; i < altura; i++){
             for(int j = 1; j < largura; j++){
-                if(matrizBinaria[i][j] == 0){
+                //Se for Branco, move para o próximo Pixel
+                if(matrizBinaria[i][j] == PRETO){
+                    //Se for Preto, analisa-se s e r
                     int s = matrizBinaria[i-1][j];
                     int r = matrizBinaria[i][j-1];
-                    if(s == r && r == -1){
+                    if(s == r && r == BRANCO){
+                        //Se s e r forem branco e p for preto assinala-se um novo label para p e
+                        //anota-se que esse label já foi usado
+                        System.out.println("s e r são branco e p é preto, label: " + label);
                         novaMatrizPixel[i][j] = label;
                         labelUsada.add(label);
                         label++;
                     }else{
-                        if(r == 0 || s == 0){
-                            if(novaMatrizPixel[i][j-1] == novaMatrizPixel[i-1][j]){
+                        if(s == r && r == PRETO){
+                            //Se r e s forem preto e possuem diferentes labels, assinala-se
+                            //um dos labels a p e anota-se que esses labels são
+                            //equivalentes.
+                            if(novaMatrizPixel[i][j-1] != novaMatrizPixel[i-1][j]){
+                                //p recebe r
                                 novaMatrizPixel[i][j] = novaMatrizPixel[i-1][j];
+                                //Assinalando equivalência, usando a tabela ASCII
+                                equivalente.put(novaMatrizPixel[i][j-1], novaMatrizPixel[i-1][j]);
                             }else{
-                                if(r == 0) novaMatrizPixel[i][j] = novaMatrizPixel[i][j-1];
-                                else novaMatrizPixel[i][j] = novaMatrizPixel[i-1][j];
+                                //Se r e s são preto e possuem labels iguais
+                                //p recebe r
+                                novaMatrizPixel[i][j] = novaMatrizPixel[i-1][j];
                             }
-                        }else{
-
+                        }else {
+                            if (r == PRETO || s == PRETO) {
+                                if(r == PRETO){
+                                    //p recebe r
+                                    novaMatrizPixel[i][j] = novaMatrizPixel[i-1][j];
+                                }else{
+                                    //p recebe s
+                                    novaMatrizPixel[i][j] = novaMatrizPixel[i][j-1];
+                                }
+                            }
                         }
                     }
                 }
             }
         }
+        verificarEquivalencia(equivalente, altura, largura, novaMatrizPixel);
+        //exibirAux(altura, largura, novaMatrizPixel);
+        //GetSetPixels.exibirImagem(altura, largura, novaMatrizPixel);
     }
 
+    private void verificarEquivalencia(Map<Integer, Integer> equivalente, int altura, int largura, int[][] novaMatrizPixel){
+//        for(int i = 0; i < altura; i++){
+//            for(int j = 0; j < largura; j++){
+//                if(novaMatrizPixel[i][j] != 0){
+//                    if()
+//                }
+//            }
+//            System.out.println();
+//        }
+        for (Integer key : equivalente.keySet()) {
+            Integer value = equivalente.get(key);
+            System.out.println(key + " = " + value);
+        }
+    }
+
+    private void exibirAux(int altura, int largura, int[][] novaMatrizPixel){
+        for(int i = 0; i < altura; i++){
+            for(int j = 0; j < largura; j++){
+                System.out.print(novaMatrizPixel[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
+    /*
+        1- Se p = branco, move-se para o próximo pixel;
+        2- Se p = preto, analisa-se s e r:
+        2.1- Se r e s forem branco, assinala-se um novo label para p e
+        anota-se que esse label já foi usado;
+        2.2- Se r ou s for preto, assinala-se label correspondente a p;
+        2.3- Se r ou s forem preto e têm o mesmo label assinala-se esse
+        label a p;
+        2.4- Se r e s forem preto e possuem diferentes labels assinala-se
+        um dos labels a p e anota-se que esses labels são
+        equivalentes.
+        3- Troca-se cada label pelo seu equivalente.
+    */
+
     private int[][] converterParaBinaria(){
+        System.out.println("Convertendo imagem para binária");
         int altura = img.getWidth();
         int largura = img.getHeight();
 

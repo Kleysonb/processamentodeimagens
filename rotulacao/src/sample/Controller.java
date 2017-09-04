@@ -41,6 +41,7 @@ public class Controller implements Initializable {
                 System.out.println("Arquivo Enviado para Interpolação.");
                 this.algoritmo = new Algoritmo(selectedFile);
                 //this.algoritmo.converterParaBinaria();
+                this.algoritmo.rotular();
             }
 //            BufferedImage bufferedImage = ImageIO.read(selectedFile);
 //            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
