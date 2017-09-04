@@ -30,21 +30,20 @@ public class Algoritmo {
         int matrizBinaria[][] = converterParaBinaria();
 
         int label = 97;
-        ArrayList<Integer> labelUsada = new ArrayList<>();
+        //ArrayList<Integer> labelUsada = new ArrayList<>();
 
         for(int i = 1; i < altura; i++){
             for(int j = 1; j < largura; j++){
                 //Se for Branco, move para o próximo Pixel
                 if(matrizBinaria[i][j] == PRETO){
                     //Se for Preto, analisa-se s e r
-                    int s = matrizBinaria[i-1][j];
-                    int r = matrizBinaria[i][j-1];
+                    int r = matrizBinaria[i-1][j];
+                    int s = matrizBinaria[i][j-1];
                     if(s == r && r == BRANCO){
                         //Se s e r forem branco e p for preto assinala-se um novo label para p e
                         //anota-se que esse label já foi usado
-                        System.out.println("s e r são branco e p é preto, label: " + label);
                         novaMatrizPixel[i][j] = label;
-                        labelUsada.add(label);
+                        //labelUsada.add(label);
                         label++;
                     }else{
                         if(s == r && r == PRETO){
@@ -55,7 +54,7 @@ public class Algoritmo {
                                 //p recebe r
                                 novaMatrizPixel[i][j] = novaMatrizPixel[i-1][j];
                                 //Assinalando equivalência, usando a tabela ASCII
-                                equivalente.put(novaMatrizPixel[i][j-1], novaMatrizPixel[i-1][j]);
+                                equivalente.put(novaMatrizPixel[i][j], novaMatrizPixel[i][j-1]);
                             }else{
                                 //Se r e s são preto e possuem labels iguais
                                 //p recebe r
@@ -73,33 +72,37 @@ public class Algoritmo {
                             }
                         }
                     }
+                }else{
+                    novaMatrizPixel[i][j] = BRANCO;
                 }
             }
         }
         verificarEquivalencia(equivalente, altura, largura, novaMatrizPixel);
+        System.out.println();
         //exibirAux(altura, largura, novaMatrizPixel);
-        //GetSetPixels.exibirImagem(altura, largura, novaMatrizPixel);
+        GetSetPixels.exibirImagem(altura, largura, novaMatrizPixel);
     }
 
     private void verificarEquivalencia(Map<Integer, Integer> equivalente, int altura, int largura, int[][] novaMatrizPixel){
-//        for(int i = 0; i < altura; i++){
-//            for(int j = 0; j < largura; j++){
-//                if(novaMatrizPixel[i][j] != 0){
-//                    if()
-//                }
-//            }
-//            System.out.println();
-//        }
-        for (Integer key : equivalente.keySet()) {
-            Integer value = equivalente.get(key);
-            System.out.println(key + " = " + value);
+        ArrayList<Integer> passou = new ArrayList<>();
+        for(int i = 0; i < altura; i++){
+            for(int j = 0; j < largura; j++){
+                if(novaMatrizPixel[i][j] != 0){
+                    passou.add(novaMatrizPixel[i][j]);
+                    while(equivalente.get(novaMatrizPixel[i][j]) != null && !passou.contains(equivalente.get(novaMatrizPixel[i][j])) ){
+                        int aux = equivalente.get(novaMatrizPixel[i][j]);
+                        passou.add(aux);
+                        novaMatrizPixel[i][j] = aux;
+                    }
+                }
+            }
         }
     }
 
     private void exibirAux(int altura, int largura, int[][] novaMatrizPixel){
         for(int i = 0; i < altura; i++){
             for(int j = 0; j < largura; j++){
-                System.out.print(novaMatrizPixel[i][j]);
+                System.out.print(novaMatrizPixel[i][j] + " ");
             }
             System.out.println();
         }
@@ -119,7 +122,7 @@ public class Algoritmo {
         3- Troca-se cada label pelo seu equivalente.
     */
 
-    private int[][] converterParaBinaria(){
+    public int[][] converterParaBinaria(){
         System.out.println("Convertendo imagem para binária");
         int altura = img.getWidth();
         int largura = img.getHeight();
@@ -139,8 +142,8 @@ public class Algoritmo {
             }
         }
 
-        return novaMatrizPixel;
         //GetSetPixels.exibirImagem(altura, largura, novaMatrizPixel);
+        return novaMatrizPixel;
 
     }
 
