@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class GetSetPixels {
-    public static int[][] gerarMatrizPixel(BufferedImage img){
+    public static int[][] gerarMatrizPixel(BufferedImage img) {
         //Recuperando Altura e Largura da Imagem
         int altura = img.getWidth();
         int largura = img.getHeight();
@@ -17,8 +17,8 @@ public class GetSetPixels {
         //Criando matriz que receberá os pixels da imagem real
         int matrizPixel[][] = new int[altura][largura];
         //Populando matriz com os pixels
-        for(int i=0; i<altura; i++){
-            for(int j=0; j<largura; j++){
+        for (int i = 0; i < altura; i++) {
+            for (int j = 0; j < largura; j++) {
                 matrizPixel[i][j] = img.getRGB(i, j);
             }
         }
@@ -27,11 +27,12 @@ public class GetSetPixels {
         return matrizPixel;
     }
 
-    public static File exibirImagem(int altura, int largura, int[][] matrizPixel){
+    public static File exibirImagem(int altura, int largura, int[][] matrizPixel) {
         //Gerando uma nova imagem com as suas respectivas dimensões
-        BufferedImage novaImagem = new BufferedImage( altura, largura, BufferedImage.TYPE_INT_RGB);
+        System.out.println("Gerando Imagem Nova");
+        BufferedImage novaImagem = new BufferedImage(altura, largura, BufferedImage.TYPE_INT_RGB);
 
-        ArrayList<Integer> cores = new ArrayList<>();
+//        ArrayList<Integer> cores = new ArrayList<>();
 //        cores.add(-256); // Amarelo
 //        cores.add(-65536); // Vermelho
 //        cores.add(-16711936); // Verde
@@ -39,25 +40,24 @@ public class GetSetPixels {
 //        cores.add(-23296); // Laranja
 
         //Atualizando a imagem gerada pixel a pixel
-        for(int i=0; i<altura; i++){
-            for(int j=0; j<largura; j++){
+        for (int i = 0; i < altura; i++) {
+            for (int j = 0; j < largura; j++) {
                 //Dada as coordenadas 'i' e 'j', temos cada posição de pixel da nova imagem, que pode ser alterada por qualquer pixel desejado
-                if(cores.contains(matrizPixel[i][j])){
-
-                }
-                novaImagem.setRGB(i, j, matrizPixel[i][j]);
+                    novaImagem.setRGB(i, j, matrizPixel[i][j]);
             }
         }
-        try{
+        try {
             System.out.println("Nova Imagem Gerada");
-            File f = new File("novaRotulacao.jpg");
+            File f = new File("rotulacao.jpg");
             ImageIO.write(novaImagem, "jpg", f);
             return f;
-        }catch(IOException e){
+        } catch (IOException e) {
             System.out.println(e);
             return null;
         }
     }
+
+
 
     /*
         Amarelo: -256
