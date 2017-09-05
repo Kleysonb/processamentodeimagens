@@ -53,7 +53,7 @@ public class Interpolacao {
         int largura = this.img.getHeight();
 
         //Aqui é definido a quantidade de Zoom que será aplicado, alterando a porcentagem
-        double porcentademBorda = 0.2;
+        double porcentademBorda = 0;
         //Cálculo para saber o quanto de borda será removido, dada a porcentagem
         int alturaAux = (int) (altura * porcentademBorda);
         int larguraAux = (int) (largura * porcentademBorda);
@@ -117,11 +117,12 @@ public class Interpolacao {
 
         int linha=0, coluna;
         //Populando os dados da nova matriz
-        for(int i=0; i<altura; i+=2){
+        for(int i=0; i<altura-1; i+=2){
             coluna=0;
-            for(int j=0; j<largura; j+=2){
-                novaMatrizPixel[linha][coluna] = this.suporteMediaBilinear(this.matrizPixel[linha][coluna], this.matrizPixel[linha][coluna+1],
-                                                                            this.matrizPixel[linha+1][coluna], this.matrizPixel[linha+1][coluna+1]);
+            for(int j=0; j<largura-1; j+=2){
+                novaMatrizPixel[linha][coluna] = this.suporteMediaBilinear(this.matrizPixel[i][j], this.matrizPixel[i][j+1],
+                                                                            this.matrizPixel[i+1][j], this.matrizPixel[i+1][j+1]);
+                //novaMatrizPixel[linha][coluna] = this.matrizPixel[i][j];
                 coluna++;
             }
             linha++;
@@ -137,7 +138,7 @@ public class Interpolacao {
         int largura = this.img.getHeight();
 
         //Aqui é definido a quantidade de Zoom que será aplicado, alterando a porcentagem
-        double porcentademBorda = 0.2;
+        double porcentademBorda = 0;
         //Cálculo para saber o quanto de borda será removido, dada a porcentagem
         int alturaAux = (int) (altura * porcentademBorda);
         int larguraAux = (int) (largura * porcentademBorda);
@@ -170,9 +171,9 @@ public class Interpolacao {
         int linha=0, coluna;
         //int colunaAux=0, linhaAux=0;
         //Populando os dados da nova matriz, com base na ampliação por bilinear da imagem real
-        for(int i = aY; i < cY; i++){
+        for(int i = aY; i < cY-1; i++){
             coluna=0;
-            for(int j = aX; j < bX; j++){
+            for(int j = aX; j < bX-1; j++){
                 int a = this.suporteMediaBilinear(this.matrizPixel[i][j], this.matrizPixel[i][j+1]);
                 //int e = this.suporteMediaBilinear(this.matrizPixel[i+1][j], this.matrizPixel[i+1][j+1]);
                 int b = this.suporteMediaBilinear(this.matrizPixel[i][j], this.matrizPixel[i+1][j]);

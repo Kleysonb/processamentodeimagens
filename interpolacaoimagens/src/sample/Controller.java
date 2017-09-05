@@ -59,8 +59,8 @@ public class Controller implements Initializable {
                 this.interpolacao = new Interpolacao(selectedFile);
                 //this.interpolacao.vizinhoReducao();
                 //this.interpolacao.vizinhoAmpliacao();
-                //this.interpolacao.bilinearReducao();
-                this.interpolacao.bilinearAmpliacao();
+                this.interpolacao.bilinearReducao();
+                //this.interpolacao.bilinearAmpliacao();
                 //this.interpolacao.seletorArquivo(selectedFile);
             }
             BufferedImage bufferedImage = ImageIO.read(selectedFile);
