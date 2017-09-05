@@ -20,7 +20,7 @@ public class Algoritmo {
 
     public void rotular() {
         System.out.println("Rotulando elementos");
-        Map<Integer, Integer> equivalente = new HashMap<Integer, Integer>();
+        Map<Integer, ArrayList<Integer>> equivalente = new HashMap<Integer, ArrayList<Integer>>();
 
         ArrayList<Integer> chave = new ArrayList<>();
         ArrayList<Integer> valor = new ArrayList<>();
@@ -58,9 +58,16 @@ public class Algoritmo {
                                 //p recebe r
                                 novaMatrizPixel[i][j] = novaMatrizPixel[i - 1][j];
                                 //Assinalando equivalência, usando a tabela ASCII
-                                //System.out.println("i: " + i + "  j: " + j);
-                                //System.out.println(novaMatrizPixel[i-1][j] + " = " + novaMatrizPixel[i][j-1]);
-                                equivalente.put(novaMatrizPixel[i - 1][j], new Integer(novaMatrizPixel[i][j - 1]));
+
+                                if(equivalente.containsKey(novaMatrizPixel[i][j])){
+                                    if(!equivalente.get(novaMatrizPixel[i][j]).contains(novaMatrizPixel[i][j - 1])){
+                                        equivalente.get(novaMatrizPixel[i][j]).add(novaMatrizPixel[i][j - 1]);
+                                    }
+                                }else{
+                                    equivalente.put(novaMatrizPixel[i][j], new ArrayList<>());
+                                    equivalente.get(novaMatrizPixel[i][j]).add(novaMatrizPixel[i][j - 1]);
+                                }
+
                                 chave.add(novaMatrizPixel[i - 1][j]);
                                 valor.add(novaMatrizPixel[i][j - 1]);
                             } else {
@@ -89,7 +96,7 @@ public class Algoritmo {
         }
         //exibirAux(altura, largura, novaMatrizPixel);
         System.out.println();
-        verificarEquivalencia(altura, largura, novaMatrizPixel, chave, valor);
+        verificarEquivalencia(equivalente, altura, largura, novaMatrizPixel);
         //GetSetPixels.exibirImagem(altura, largura, novaMatrizPixel);
     }
 
@@ -116,32 +123,37 @@ public class Algoritmo {
         //exibirAux(altura, largura, novaMatrizPixel);
     }
 
-    private void verificarEquivalencia(Map<Integer, Integer> equivalente, int altura, int largura, int[][] novaMatrizPixel) {
+    private void verificarEquivalencia(Map<Integer, ArrayList<Integer>> equivalente, int altura, int largura, int[][] novaMatrizPixel) {
         System.out.println("Verificando Equivalência");
-        //int novaMatriz[][] = new int[altura][largura];
-        ArrayList<Integer> passou = new ArrayList<>();
 
         for (int key : equivalente.keySet()) {
-            int value = equivalente.get(key);
-            System.out.println(key + " = " + value);
+            ArrayList<Integer> value = equivalente.get(key);
+            System.out.println(key + " = " + value.toString());
         }
-        for (int i = 0; i < altura; i++) {
-            for (int j = 0; j < largura; j++) {
-                if (novaMatrizPixel[i][j] != 0) {
-                    passou.add(novaMatrizPixel[i][j]);
-                    int x;
-                    while (equivalente.get(novaMatrizPixel[i][j]) != null) {
-                        int aux = equivalente.get(novaMatrizPixel[i][j]);
-                        passou.add(aux);
-                        novaMatrizPixel[i][j] = aux;
-                        //novaMatriz[i][j] = 8;
-                    }
-                }
-            }
-        }
-        exibirAux(altura, largura, novaMatrizPixel);
+//        for (int i = 0; i < altura; i++) {
+//            for (int j = 0; j < largura; j++) {
+//                if (novaMatrizPixel[i][j] != 0) {
+//                    //passou.add(novaMatrizPixel[i][j]);
+//                    while (equivalente.get(novaMatrizPixel[i][j]) != null) {
+//                        int size = equivalente.get(novaMatrizPixel[i][j]).size();
+//
+//                        //passou.add(aux);
+//                        //novaMatrizPixel[i][j] = aux;
+//                    }
+//                }
+//            }
+//        }
+        //exibirAux(altura, largura, novaMatrizPixel);
     }
 
+    private void tornarEquivalente(Map<Integer, ArrayList<Integer>> equivalente, int valor){
+        for(int i = 0; i < equivalente.size(); i++){
+            if(equivalente.get(valor) != null){
+
+                //tornarEquivalente();
+            }
+        }
+    }
 
     private void exibirAux(int altura, int largura, int[][] novaMatrizPixel) {
         for (int i = 0; i < altura; i++) {
