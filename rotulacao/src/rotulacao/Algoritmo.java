@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class Algoritmo {
 
@@ -33,7 +34,7 @@ public class Algoritmo {
         int novaMatrizPixel[][] = new int[altura][largura];
         int matrizBinaria[][] = converterParaBinaria();
 
-        int label = 15;
+        int label = 2;
         //ArrayList<Integer> labelUsada = new ArrayList<>();
 
         for (int i = 1; i < altura; i++) {
@@ -100,59 +101,78 @@ public class Algoritmo {
         //GetSetPixels.exibirImagem(altura, largura, novaMatrizPixel);
     }
 
-    private void verificarEquivalencia(int altura, int largura, int[][] novaMatrizPixel, ArrayList<Integer> chave, ArrayList<Integer> valor) {
+    private void verificarEquivalencia(Map<Integer, ArrayList<Integer>> equivalente, int altura, int largura, int[][] novaMatrizPixel) {
         System.out.println("Verificando Equivalência");
-        //int novaMatriz[][] = new int[altura][largura];
-        ArrayList<Integer> passou = new ArrayList<>();
-
-        for(int i = 0; i < chave.size(); i++){
-            if(chave.get(i) == 15){
-                System.out.println(15 + " : " + valor.get(i));
+        ArrayList<Integer> chave = new ArrayList<>();
+        ArrayList<Integer> valor = new ArrayList<>();
+        for (int key : equivalente.keySet()) {
+            //ArrayList<Integer> value = equivalente.get(key);
+            for (int j = 0; j < equivalente.get(key).size(); j++) {
+                chave.add(key);
+                valor.add(equivalente.get(key).get(j));
             }
+            //System.out.println(key + " = " + value.toString());
         }
 
-        for (int i = 0; i < altura; i++) {
-            for (int j = 0; j < largura; j++) {
-                if (novaMatrizPixel[i][j] != 0) {
-                    int x;
+        for (int i = 0; i < chave.size(); i++){
+            int valorTemp = valor.get(i);
+            //System.out.println("Valor = " + valorTemp);
+            for (int j = 0; j < valor.size(); j++) {
+                //System.out.println(chave.get(j) + " = " + valor.get(j));
+                //System.out.println(chave.get(j) + " == " + valorTemp);
+                if(chave.get(j) == valorTemp){
+                    chave.set(j, chave.get(i));
+                }
+            }
+        }
+//        for (int j = 0; j < chave.size(); j++) {
+//            System.out.println(chave.get(j) + " = " + valor.get(j));
+//        }
 
+        ArrayList<Integer> pixel = new ArrayList<>();
+        ArrayList<Integer> cor = new ArrayList<>();
+
+        Random gerador = new Random();
+
+        for(int i = 0; i < altura; i++){
+            for(int j = 0; j < largura; j++){
+                if(novaMatrizPixel[i][j] != 0){
+                    int aux = colorir(chave, valor, novaMatrizPixel[i][j]);
+                    if(pixel.contains(aux)){
+                        int novoPixel = cor.get(pixel.indexOf(aux));
+                        novaMatrizPixel[i][j] = novoPixel;
+                    }else{
+                        pixel.add(aux);
+                        int a = 255;
+                        int r = gerador.nextInt(255);
+                        int g = gerador.nextInt(255);
+                        int b = gerador.nextInt(255);
+                        int p = p = (a<<24) | (r<<16) | (g<<8) | b;
+                        cor.add(p);
+                    }
+                }else{
+                    novaMatrizPixel[i][j] = -1;
                 }
             }
         }
 
-        //exibirAux(altura, largura, novaMatrizPixel);
+        System.out.println("Quantidade de Regiões: " + cor.size());
+        GetSetPixels.exibirImagem(altura, largura, novaMatrizPixel, "rotulacaoNova.jpg");
+          //exibirAux(altura, largura, novaMatrizPixel);
     }
 
-    private void verificarEquivalencia(Map<Integer, ArrayList<Integer>> equivalente, int altura, int largura, int[][] novaMatrizPixel) {
-        System.out.println("Verificando Equivalência");
-
-        for (int key : equivalente.keySet()) {
-            ArrayList<Integer> value = equivalente.get(key);
-            System.out.println(key + " = " + value.toString());
-        }
-//        for (int i = 0; i < altura; i++) {
-//            for (int j = 0; j < largura; j++) {
-//                if (novaMatrizPixel[i][j] != 0) {
-//                    //passou.add(novaMatrizPixel[i][j]);
-//                    while (equivalente.get(novaMatrizPixel[i][j]) != null) {
-//                        int size = equivalente.get(novaMatrizPixel[i][j]).size();
-//
-//                        //passou.add(aux);
-//                        //novaMatrizPixel[i][j] = aux;
-//                    }
-//                }
-//            }
-//        }
-        //exibirAux(altura, largura, novaMatrizPixel);
-    }
-
-    private void tornarEquivalente(Map<Integer, ArrayList<Integer>> equivalente, int valor){
-        for(int i = 0; i < equivalente.size(); i++){
-            if(equivalente.get(valor) != null){
-
-                //tornarEquivalente();
+    private int colorir(ArrayList<Integer> chave, ArrayList<Integer> valor, int pixel){
+        for(int i = 0; i < chave.size(); i++){
+            if(chave.get(i) == pixel){
+                return pixel;
             }
         }
+        for(int i = 0; i < chave.size(); i++){
+            if(valor.get(i) == pixel){
+                return chave.get(i);
+            }
+        }
+        return 0;
     }
 
     private void exibirAux(int altura, int largura, int[][] novaMatrizPixel) {
@@ -174,7 +194,7 @@ public class Algoritmo {
         for (int i = 0; i < altura; i++) {
             for (int j = 0; j < largura; j++) {
 
-                if ((this.matrizPixels[i][j] & 0xff) > 127) {
+                if ((this.matrizPixels[i][j] & 0xff) > 200) {
                     //Branco
                     novaMatrizPixel[i][j] = -1;
                 } else {
@@ -185,7 +205,7 @@ public class Algoritmo {
         }
 
         //exibirAux(largura, altura, novaMatrizPixel);
-        //GetSetPixels.exibirImagem(altura, largura, novaMatrizPixel);
+        GetSetPixels.exibirImagem(altura, largura, novaMatrizPixel, "binaria.jpg");
         return novaMatrizPixel;
 
     }

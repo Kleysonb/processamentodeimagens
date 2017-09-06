@@ -27,7 +27,7 @@ public class GetSetPixels {
         return matrizPixel;
     }
 
-    public static File exibirImagem(int altura, int largura, int[][] matrizPixel) {
+    public static File exibirImagem(int altura, int largura, int[][] matrizPixel, String nome) {
         //Gerando uma nova imagem com as suas respectivas dimensões
         System.out.println("Gerando Imagem Nova");
         BufferedImage novaImagem = new BufferedImage(altura, largura, BufferedImage.TYPE_INT_RGB);
@@ -48,7 +48,7 @@ public class GetSetPixels {
         }
         try {
             System.out.println("Nova Imagem Gerada");
-            File f = new File("rotulacao.jpg");
+            File f = new File(nome);
             ImageIO.write(novaImagem, "jpg", f);
             return f;
         } catch (IOException e) {
