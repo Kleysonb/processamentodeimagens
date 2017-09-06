@@ -1,6 +1,7 @@
 package rotulacao;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,13 +14,15 @@ public class Algoritmo {
 
     private int[][] matrizPixels;
     private BufferedImage img;
+    public BufferedImage binaria, rotulada;
+    public int quantidadeRegioes;
 
     public Algoritmo(File arquivo) throws IOException {
         this.img = ImageIO.read(arquivo);
         this.matrizPixels = GetSetPixels.gerarMatrizPixel(this.img);
     }
 
-    public void rotular() {
+    public void rotular() throws IOException {
         System.out.println("Rotulando elementos");
         Map<Integer, ArrayList<Integer>> equivalente = new HashMap<Integer, ArrayList<Integer>>();
 
@@ -28,8 +31,12 @@ public class Algoritmo {
 
         int altura = img.getWidth();
         int largura = img.getHeight();
-        int BRANCO = -1;
-        int PRETO = 0;
+
+        Color preto = new Color(0,0,0,255);
+        Color branco = new Color(255,255,255, 255);
+
+        int BRANCO = branco.getRGB();
+        int PRETO = preto.getRGB();
 
         int novaMatrizPixel[][] = new int[altura][largura];
         int matrizBinaria[][] = converterParaBinaria();
@@ -41,6 +48,7 @@ public class Algoritmo {
             for (int j = 1; j < largura; j++) {
                 //Se for Branco, move para o próximo Pixel
                 if (matrizBinaria[i][j] == PRETO) {
+                    //System.out.println(matrizBinaria[i][j] + " == " + PRETO);
                     //Se for Preto, analisa-se s e r
                     int r = matrizBinaria[i - 1][j];
                     int s = matrizBinaria[i][j - 1];
@@ -101,7 +109,7 @@ public class Algoritmo {
         //GetSetPixels.exibirImagem(altura, largura, novaMatrizPixel);
     }
 
-    private void verificarEquivalencia(Map<Integer, ArrayList<Integer>> equivalente, int altura, int largura, int[][] novaMatrizPixel) {
+    private void verificarEquivalencia(Map<Integer, ArrayList<Integer>> equivalente, int altura, int largura, int[][] novaMatrizPixel) throws IOException {
         System.out.println("Verificando Equivalência");
         ArrayList<Integer> chave = new ArrayList<>();
         ArrayList<Integer> valor = new ArrayList<>();
@@ -156,8 +164,9 @@ public class Algoritmo {
             }
         }
 
-        System.out.println("Quantidade de Regiões: " + cor.size());
-        GetSetPixels.exibirImagem(altura, largura, novaMatrizPixel, "rotulacaoNova.jpg");
+        this.quantidadeRegioes = cor.size();
+        System.out.println("Quantidade de Regiões: " + this.quantidadeRegioes);
+        this.rotulada = ImageIO.read(GetSetPixels.exibirImagem(altura, largura, novaMatrizPixel, "rotulacaoNova.jpg"));
           //exibirAux(altura, largura, novaMatrizPixel);
     }
 
@@ -178,34 +187,37 @@ public class Algoritmo {
     private void exibirAux(int altura, int largura, int[][] novaMatrizPixel) {
         for (int i = 0; i < altura; i++) {
             for (int j = 0; j < largura; j++) {
-                System.out.print(novaMatrizPixel[i][j] + " ");
+                System.out.print(novaMatrizPixel[i][j] + "");
             }
             System.out.println();
         }
     }
 
-    public int[][] converterParaBinaria() {
+    public int[][] converterParaBinaria() throws IOException {
         System.out.println("Convertendo imagem para binária");
         int altura = img.getWidth();
         int largura = img.getHeight();
 
         int novaMatrizPixel[][] = new int[altura][largura];
 
+        Color preto = new Color(0,0,0,255);
+        Color branco = new Color(255,255,255, 255);
+
         for (int i = 0; i < altura; i++) {
             for (int j = 0; j < largura; j++) {
 
                 if ((this.matrizPixels[i][j] & 0xff) > 200) {
                     //Branco
-                    novaMatrizPixel[i][j] = -1;
+                    novaMatrizPixel[i][j] = branco.getRGB();
                 } else {
                     //Preto
-                    novaMatrizPixel[i][j] = 0;
+                    novaMatrizPixel[i][j] = preto.getRGB();
                 }
             }
         }
 
-        //exibirAux(largura, altura, novaMatrizPixel);
-        GetSetPixels.exibirImagem(altura, largura, novaMatrizPixel, "binaria.jpg");
+        //exibirAux(altura, largura, novaMatrizPixel);
+        this.binaria = ImageIO.read(GetSetPixels.exibirImagem(altura, largura, novaMatrizPixel, "binaria.jpg"));
         return novaMatrizPixel;
 
     }

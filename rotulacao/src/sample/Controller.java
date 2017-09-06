@@ -4,7 +4,9 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import rotulacao.Algoritmo;
@@ -28,8 +30,22 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    private ImageView binaria;
+
+    @FXML
+    private ImageView rotulada;
+
+    @FXML
+    private Label binariaTxt;
+
+    @FXML
+    private Label rotuladaTxt;
+
+    @FXML
+    private Label quantidadeTxt;
+
+    @FXML
     private void seletorArquivo() {
-        //System.out.println("oii");
         Stage mainStage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Abrir Arquivo");
@@ -42,13 +58,22 @@ public class Controller implements Initializable {
                 this.algoritmo = new Algoritmo(selectedFile);
                 //this.algoritmo.converterParaBinaria();
                 this.algoritmo.rotular();
+
+                Image image1 = SwingFXUtils.toFXImage(this.algoritmo.binaria, null);
+                this.binaria.setImage(image1);
+                this.binariaTxt.setText("Binária");
+
+                Image image2 = SwingFXUtils.toFXImage(this.algoritmo.rotulada, null);
+                this.rotulada.setImage(image2);
+                this.rotuladaTxt.setText("Rotulada");
+
+                this.quantidadeTxt.setText("Quantidade de Regiões: " + this.algoritmo.quantidadeRegioes);
             }
 //            BufferedImage bufferedImage = ImageIO.read(selectedFile);
 //            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
         } catch (IOException ex) {
             System.out.println("Error");
         }
-
     }
 
 }
