@@ -26,16 +26,7 @@ public class Controller implements Initializable {
     private Button abrirArquivo;
 
     @FXML
-    private ImageView vizinhoReducao;
-
-    @FXML
-    private ImageView vizinhoAmpliacao;
-
-    @FXML
-    private ImageView bilinearReducao;
-
-    @FXML
-    private ImageView bilinearAmpliacao;
+    private ImageView original;
 
     private Interpolacao interpolacao;
 
@@ -57,19 +48,18 @@ public class Controller implements Initializable {
             if (selectedFile != null) {
                 System.out.println("Arquivo Enviado para Interpolação.");
                 this.interpolacao = new Interpolacao(selectedFile);
-                //this.interpolacao.vizinhoReducao();
-                //this.interpolacao.vizinhoAmpliacao();
+
+                this.interpolacao.vizinhoReducao();
+                this.interpolacao.vizinhoAmpliacao();
                 this.interpolacao.bilinearReducao();
-                //this.interpolacao.bilinearAmpliacao();
-                //this.interpolacao.seletorArquivo(selectedFile);
+                this.interpolacao.bilinearAmpliacao();
+
             }
             BufferedImage bufferedImage = ImageIO.read(selectedFile);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            //System.out.println("aqui");
-            //this.vizinhoReducao.setImage(this.interpolacao.vizinhoProxReducao());
-            //this.vizinhoAmpliacao.setImage(image);
-            //this.bilinearReducao.setImage(this.interpolacao.bilinearReducao());
-            //this.bilinearAmpliacao.setImage(image);
+            this.original.setImage(image);
+
+
         } catch (IOException ex) {
             //Logger.getLogger(JavaFXPixel.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error");

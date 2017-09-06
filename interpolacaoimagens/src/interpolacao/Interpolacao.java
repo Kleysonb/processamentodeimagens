@@ -43,7 +43,7 @@ public class Interpolacao {
             linha++;
         }
         //Chamada da função que reconstruirá a imagem nova
-        GetSetPixels.exibirImagem(novaAltura, novaLargura, novaMatrizPixel);
+        GetSetPixels.exibirImagem(novaAltura, novaLargura, novaMatrizPixel, "vizinhoReducao");
         return null;
     }
 
@@ -99,7 +99,7 @@ public class Interpolacao {
         }
 
         //A nova matriz é usada para recontrução da nova imagem
-        GetSetPixels.exibirImagem(novaAltura, novaLargura, novaMatrizPixel);
+        GetSetPixels.exibirImagem(novaAltura, novaLargura, novaMatrizPixel, "vizinhoAmpliacao");
         return null;
     }
 
@@ -128,7 +128,7 @@ public class Interpolacao {
             linha++;
         }
         //Chamada da função que reconstruirá a imagem nova
-        GetSetPixels.exibirImagem(novaAltura, novaLargura, novaMatrizPixel);
+        GetSetPixels.exibirImagem(novaAltura, novaLargura, novaMatrizPixel, "bilinearReducao");
         return null;
     }
 
@@ -196,7 +196,7 @@ public class Interpolacao {
         }
 
         //A nova matriz é usada para recontrução da nova imagem
-        GetSetPixels.exibirImagem(novaAltura, novaLargura, novaMatrizPixel);
+        GetSetPixels.exibirImagem(novaAltura, novaLargura, novaMatrizPixel, "bilinearAmpliacao");
         return null;
     }
 
