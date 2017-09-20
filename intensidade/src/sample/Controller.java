@@ -1,0 +1,66 @@
+package sample;
+
+import javafx.embed.swing.SwingFXUtils;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import transformacao.Algoritmo;
+//import rotulacao.Algoritmo;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class Controller implements Initializable {
+
+    @FXML
+    private Button abrirArquivo;
+
+    private Algoritmo algoritmo;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+    }
+
+    @FXML
+    private ImageView binaria;
+
+    @FXML
+    private ImageView rotulada;
+
+    @FXML
+    private void seletorArquivo() throws IOException {
+        Stage mainStage = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Abrir Arquivo");
+        boolean b = fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Imagem", "*.png", "*.jpg", "*.jpeg"));
+        File selectedFile = fileChooser.showOpenDialog(mainStage);
+        if (selectedFile != null) {
+            System.out.println("Arquivo Enviado para Interpolação.");
+            this.algoritmo = new Algoritmo(selectedFile);
+            this.algoritmo.powerLaw();
+
+//                Image image1 = SwingFXUtils.toFXImage(this.algoritmo.binaria, null);
+//                this.binaria.setImage(image1);
+//                this.binariaTxt.setText("Binária");
+//
+//                Image image2 = SwingFXUtils.toFXImage(this.algoritmo.rotulada, null);
+//                this.rotulada.setImage(image2);
+//                this.rotuladaTxt.setText("Rotulada");
+//
+//                this.quantidadeTxt.setText("Quantidade de Regiões: " + this.algoritmo.quantidadeRegioes);
+        }
+//            BufferedImage bufferedImage = ImageIO.read(selectedFile);
+//            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+    }
+
+}
