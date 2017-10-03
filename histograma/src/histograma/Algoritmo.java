@@ -41,7 +41,6 @@ public class Algoritmo {
         int largura = this.img.getHeight();
 
         this.totalPixels = altura * largura;
-        System.out.println("Total de Pixels: " + this.totalPixels);
 
         int[][] imagemNiveldeCinza = imagemNiveldeCinza();
         GetSetPixels.exibirImagem(altura, largura, imagemNiveldeCinza, "nivel_de_cinza");
