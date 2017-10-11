@@ -62,6 +62,7 @@ public class Algoritmo {
                 imagemEqualizada[i][j] = corDoPixel;
             }
         }
+        imprimirTabela();
         GetSetPixels.exibirImagem(altura, largura, imagemEqualizada, "imagem_equalizada");
     }
 
