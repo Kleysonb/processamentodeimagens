@@ -49,7 +49,7 @@ public class Controller implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Abrir Arquivo");
         boolean b = fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Imagem", "*.png", "*.jpg", "*.jpeg"));
+                new FileChooser.ExtensionFilter("Imagem", "*.png", "*.jpg", "*.jpeg","*.tif"));
         File selectedFile = fileChooser.showOpenDialog(mainStage);
         if (selectedFile != null) {
             System.out.println("Arquivo Enviado para Interpolação.");

@@ -59,7 +59,7 @@ public class Gradiente {
                 novaMatrizPixel[i][j] = suporteMascaraHorizontal(a,b,c,g,h,k);
             }
         }
-        GetSetPixels.exibirImagem(altura, largura, novaMatrizPixel, "gradiente_sobel_horizontal");
+        GetSetPixels.exibirImagem(altura, largura, novaMatrizPixel, "gradiente_sobel_1");
     }
 
     public void mascaraSobelVertical(int altura, int largura, int[][] matrizPixel){
@@ -79,7 +79,7 @@ public class Gradiente {
                 novaMatrizPixel[i][j] = suporteMascaraVertical(a,b,c,d,e,f);
             }
         }
-        GetSetPixels.exibirImagem(altura, largura, novaMatrizPixel, "gradiente_sobel_vertical");
+        GetSetPixels.exibirImagem(altura, largura, novaMatrizPixel, "gradiente_sobel_2");
     }
 
     public int[][] imagemNiveldeCinza() {
